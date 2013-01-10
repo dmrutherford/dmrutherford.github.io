@@ -7,8 +7,25 @@ $blue-dark:		darken($blue, 10%);
 
 // FONTS
 
-$serif:	'Century Schoolbook', Century, Baskerville, Georgia, serif;
-$sans:	'Source Sans Pro', 'Lucida Grande', Verdana, sans-serif;
+$serif:	'Linux Libertine O',
+		'Cambria',
+		'Hoefler Text',
+		'Liberation Serif',
+		'Times New Roman',
+		'Times',
+		serif;
+		
+$sans:	'Myriad Pro',
+		'Myriad',
+		'Frutiger',
+		'Gill Sans',
+		'Gill Sans MT',
+		'Calibri',
+		'DejaVu Sans',
+		'Liberation Sans',
+		'Tahoma',
+		sans-serif;
+		
 $mono:	'Source Code Pro',
 		'Consolas',
 		'Andale Mono',
