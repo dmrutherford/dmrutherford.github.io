@@ -1,15 +1,21 @@
 // COLOURS
 
-$blue: #2385b8;
-$blue-light: darken($blue, 10%);
-$blue-dark: darken($blue, 10%);
+$blue:			#2385b8;
+$blue-light:	darken($blue, 10%);
+$blue-dark:		darken($blue, 10%);
 
 
 // FONTS
 
-$serif: 'Century Schoolbook', Century, Baskerville, Georgia, serif;
-$sans: 'Source Sans Pro', 'Lucida Grande', Verdana, sans-serif;
-$slab: Ultra, 'Rockwell Extra Bold', Georgia;
+$serif:	'Century Schoolbook', Century, Baskerville, Georgia, serif;
+$sans:	'Source Sans Pro', 'Lucida Grande', Verdana, sans-serif;
+$mono:	'Source Code Pro',
+		'Consolas',
+		'Andale Mono',
+		'Lucida Console',
+		'DejaVu Sans Mono',
+		'Courier New',
+		monospace;
 
 
 // IMAGES
