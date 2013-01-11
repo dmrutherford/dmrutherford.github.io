@@ -3,6 +3,7 @@
 $blue:			#2385b8;
 $blue-light:	darken($blue, 10%);
 $blue-dark:		darken($blue, 10%);
+$bg-grey:		#292929;
 
 
 // FONTS
@@ -39,6 +40,5 @@ $icons:	;
 
 // IMAGES
 
-$leather: url('/img/leather.png');
-$leather-2x: url('/img/leather@2x.png');
-$leather-fallback: #373737;
+$corduroy: 		url('/img/corduroy.png');
+$corduroy-2x: 	url('/img/corduroy@2x.png');
