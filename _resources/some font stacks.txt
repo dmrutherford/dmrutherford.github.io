@@ -1,0 +1,29 @@
+Calibri
+DejaVu Sans
+Gill Sans
+Gill Sans MT
+Vegur
+Myriad
+Myriad Pro
+Lucida Grande
+Verdana
+Source Sans Pro
+Segoe
+Segoe UI
+Frutiger
+
+
+-------------
+
+Google Web Fonts
+Source Code Pro
+Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace
+
+
+----------------
+
+@font-face
+Linux Libertine O
+Cambria, "Hoefler Text", Utopia, "Liberation Serif", "Nimbus Roman No9 L Regular", Times, "Times New Roman", serif
+
+LibGWF, 'Linux Libertine O', 'Linux Libertine', Times, 'Times New Roman', 'Liberation Serif'
