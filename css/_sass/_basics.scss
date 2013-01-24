@@ -2,9 +2,20 @@ html {
 	background-color:			$bg-grey;
 	background:					$corduroy;
 	color:						white;
-	font-size:					62.5%;			/* INCREASE TO 75% WITH MEDIA QUERY */
+	font-size:					62.5%;
+	height:						100%;
+	min-height:					100%;
 	-webkit-font-smoothing:		antialiased;
 	-webkit-text-size-adjust:	100%;
+	
+	@media (-webkit-min-device-pixel-ratio : 1.5), (min-device-pixel-ratio : 1.5) {
+		background:				$corduroy-2x;
+		background-size:		12.8rem 12.8rem;
+	}/*
+	
+	@media (min-width: 46em) {
+		font-size:				75%;
+	}*/
 }
 
 	@media (-webkit-min-device-pixel-ratio : 1.5), (min-device-pixel-ratio : 1.5) {
@@ -18,9 +29,11 @@ html {
 
 body {
 	font-family:	$serif;
-	font-size:		1.6rem;
+	font-size:		2rem;
+	height:			100%;
 	line-height:	1.5;
 	margin:			0 auto;
-	max-width:		68rem;
-	padding:		0 1.6rem;		/* INCREASE TO 3.2 WITH MEDIA QUERY */
+	max-width:		59.2rem;
+	min-height:		100%;
+	padding:		0 1.6rem;
 }
