@@ -1,0 +1,34 @@
+.colophon {
+	padding-top:	6.4rem;
+	text-align:		center;
+}
+
+header {
+	padding:	3.2rem 0 0;
+}
+
+.content {
+	padding:	3.2rem 0 6.4rem;
+}
+
+footer {
+	font-size:	3.2rem;
+	padding:	0 0 3.2rem;
+	text-align:	center;
+	
+	& [class*='icon-'] {
+		height:	4.4rem;
+		width:	4.4rem;
+	}
+}
+
+.ackbar {
+	min-height:		100%;
+	height:			auto !important;
+	height:			100%;
+	margin-bottom:	-$footer-height;
+}
+
+.push {
+	height:	$footer-height;
+}
