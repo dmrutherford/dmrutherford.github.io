@@ -1,7 +1,7 @@
 // COLOURS
 
 $blue:			#2385b8;
-$blue-light:	darken($blue, 10%);
+$blue-light:	lighten($blue, 10%);
 $blue-dark:		darken($blue, 10%);
 $bg-grey:		#292929;
 
@@ -42,3 +42,8 @@ $icons:	'forkons';
 
 $corduroy: 		url('/img/corduroy.png');
 $corduroy-2x: 	url('/img/corduroy@2x.png');
+
+
+// SIZES
+
+$footer-height:	8.6rem;
