@@ -1,0 +1,196 @@
+/* MAIN HEAD */
+
+[class*='header-'] {
+	color:	#111;
+	
+	&:visited {
+		color: #111;
+	}
+	
+	&:hover, &:active {
+		color: $blue-light;
+	}
+}
+
+.header-large {
+	display:		inline-block;
+	font-size:		6.4rem;
+	padding-top:	6.4rem;
+}
+
+.header-small {
+	font-size:		2.4rem;
+	padding-left:	1.6rem;
+}
+
+.permafrost {
+	color:	white;
+}
+
+
+/* LINKS */
+
+a {
+	color:				$blue;
+	text-decoration:	none;
+	-webkit-transition:	0.5s color;
+	
+	&:visited {
+		color:	$blue-dark;
+	}
+	
+	&:hover, &:active {
+		color:	$blue-light;
+		-webkit-transition:	0.1s color;
+	}
+}
+
+
+/* EMBOLDENED */
+
+b, strong {
+	font-weight: bold;
+}
+
+
+/* ITALICISED */
+
+.full-work, dt, em, figcaption, i, var {
+	font-style: italic;
+}
+
+	.full-work em, .full-work i, .full-work var, dt .full-work, dt em, dt figcaption, dt i, dt var, em .full-work, em i, em var, i .full-work, i em, i var {
+		font-style: normal;
+	}
+
+
+/* QUOTED */
+
+.subpart:before, q:before {
+	content: '\2018';
+}
+
+.subpart:after, q:after {
+	content: '\2019';
+}
+
+.subpart q:before, q q:before {
+	content: '\201C';
+}
+
+.subpart q:after, q q:after {
+	content: '\201D';
+}
+
+
+/* SMALL CAPS */
+
+.acronym, .small-caps {
+	font-variant: small-caps;
+	text-transform: lowercase;
+}
+
+
+/* GENERIC */
+
+blockquote {
+	font-size:		0.9em;
+	line-height:	1.3;
+	margin:			0 3.2rem;
+}
+
+p, pre {
+	margin-bottom:	3.2rem;
+}
+
+hr {
+	margin:		3.2rem auto;
+	opacity:	0.25;
+	width:		3.2rem;
+}
+
+
+/* CODE */
+
+code {
+	background-color:	#1b1918;
+	border-radius:		0.4rem;
+	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
+	font-family:		$mono;
+	font-size:			0.9em;
+	padding:			0.6rem 0.6rem 0.4rem;
+	text-shadow:		0.1rem 0.1rem 0.3rem darken(#1b1918, 25%);
+}
+
+pre {
+	background-color:	#1b1918;
+	border-radius:		1.2rem;
+	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
+	line-height:		1.2;
+	padding:			1.2rem;
+	overflow-x:			auto;
+	
+	& code {
+		border-radius:	0;
+		box-shadow:		none;
+		font-size:		0.65em;
+		line-height:	1.2;
+		padding:		0;
+	}
+}
+
+
+/* LISTS */
+
+
+
+
+
+
+
+
+
+
+
+dl
+
+	dt
+	
+	dd
+
+figure
+
+	figcaption {}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #000;
+	text-rendering: optimizeLegibility;
+}
+
+	h1 {
+		font-size: 3.2rem;
+	}
+
+hr
+
+img {}
+
+li {}
+
+ol {}
+
+p {}
+
+q {}
+
+section {}
+
+small {}
+
+sub {}
+
+sup {}
+
+ul {}
+
+var {}
