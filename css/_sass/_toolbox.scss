@@ -15,6 +15,9 @@
 	display:			inline-block;
 	opacity:			0.25;
 	-webkit-transition:	0.5s opacity;
+	-moz-transition:	0.5s opacity;
+	-o-transition:		0.5s opacity;
+	transition:			0.5s opacity;
 	
 	&:visited {
 		color:	inherit;
@@ -24,6 +27,9 @@
 		color:				inherit;
 		opacity:			1;
 		-webkit-transition:	0.1s opacity;
+		-moz-transition:	0.1s opacity;
+		-o-transition:		0.1s opacity;
+		transition:			0.1s opacity;
 	}
 }
 
