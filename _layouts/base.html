@@ -25,9 +25,9 @@
 	
 		<div class="ackbar">
 		
-			<header class="group">
+			<header class="group{% if page.slug == 'frontpage' %} frontpage{% endif %}">
 			
-				{% if page.slug == 'frontpage' %}<h1><a class="header-large" href="/">fork<span class="permafrost">This</span></a></h1>{% else %}<a class="icon-up" href="../" title="Up one level"><span aria-hidden="true" data-icon="u"></span><span class="screen-reader-text">Up one level</span></a>{% if page.slug != 'colophon' %}<a class="header-small" href="/">fork<span class="permafrost">This</span></a>{% endif %}{% endif %}
+				{% if page.slug == 'frontpage' %}<h1><a class="header-large" href="/">fork<span class="permafrost">This</span></a></h1>{% else %}<a class="icon-up" href="../" title="Up one level"><span aria-hidden="true" data-icon="u"></span><span class="screen-reader-text">Up one level</span></a>{% if page.slug != 'colophon' %}<a class="header-small" href="/" title="Make like ET">fork<span class="permafrost">This</span></a>{% endif %}{% endif %}
 			
 			</header>
 			
