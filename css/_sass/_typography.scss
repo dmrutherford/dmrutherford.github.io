@@ -174,50 +174,18 @@ img {
 }
 
 small {
-	font-size: 0.75em;
+	font-size:	0.75em;
 }
 	
 sub, sup {
-	font-size: 0.75em;
-	position: relative;
-	top: -0.6rem;
+	font-size:	0.75em;
+	position:	relative;
+	top:		-0.6rem;
 }
 
 	sub {
-		top: 0.4rem;
+		top:	0.4rem;
 	}
-
-
-/* CODE */
-
-code {
-	background-color:	#1b1918;
-	border-radius:		0.4rem;
-	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3),
-						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
-	font-family:		$mono;
-	font-size:			0.9em;
-	padding:			0.6rem 0.6rem 0.4rem;
-	text-shadow:		0.1rem 0.1rem 0.3rem darken(#1b1918, 25%);
-}
-
-pre {
-	background-color:	#1b1918;
-	border-radius:		1.2rem;
-	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3),
-						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
-	line-height:		1.2;
-	padding:			1.2rem;
-	overflow-x:			auto;
-	
-	& code {
-		border-radius:	0;
-		box-shadow:		none;
-		font-size:		0.65em;
-		line-height:	1.2;
-		padding:		0;
-	}
-}
 
 
 /* LISTS */
@@ -253,3 +221,35 @@ ul {
 	ol ul, ul ul {
 		list-style:	circle;
 	}
+
+
+/* CODE */
+
+code {
+	background-color:	#1b1918;
+	border-radius:		0.4rem;
+	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3),
+						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
+	font-family:		$mono;
+	font-size:			0.9em;
+	padding:			0.6rem 0.6rem 0.4rem;
+	text-shadow:		0.1rem 0.1rem 0.3rem darken(#1b1918, 25%);
+}
+
+pre {
+	background-color:	#1b1918;
+	border-radius:		1.2rem;
+	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3),
+						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
+	line-height:		1.2;
+	padding:			1.2rem;
+	overflow-x:			auto;
+	
+	& code {
+		border-radius:	0;
+		box-shadow:		none;
+		font-size:		0.65em;
+		line-height:	1.2;
+		padding:		0;
+	}
+}

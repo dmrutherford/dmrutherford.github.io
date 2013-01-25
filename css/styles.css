@@ -101,7 +101,7 @@ html {
   background-color: #292929;
   background: url("/img/corduroy.png");
   color: white;
-  font-size: 62.5%;
+  font-size: 50%;
   height: 100%;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
@@ -110,6 +110,9 @@ html {
     html {
       background: url("/img/corduroy@2x.png");
       background-size: 12.8rem 12.8rem; } }
+  @media (min-width: 38em) {
+    html {
+      font-size: 62.5%; } }
   @media (min-width: 46em) {
     html {
       font-size: 75%; } }
@@ -185,18 +188,18 @@ a {
   color: white;
   display: block;
   padding-left: 1.4rem;
-  -webkit-transition: 0.5s border-color, 0.5s color;
-  -moz-transition: 0.5s border-color, 0.5s color;
-  -o-transition: 0.5s border-color, 0.5s color;
-  transition: 0.5s border-color, 0.5s color; }
+  -webkit-transition: 0.5s border-color;
+  -moz-transition: 0.5s border-color;
+  -o-transition: 0.5s border-color;
+  transition: 0.5s border-color; }
 
-.post-link:hover {
+.post-link:hover, .post-link:active {
   border-color: white;
-  color: #35a1d9;
-  -webkit-transition: 0.1s border-color, 0.1s color;
-  -moz-transition: 0.1s border-color, 0.1s color;
-  -o-transition: 0.1s border-color, 0.1s color;
-  transition: 0.1s border-color, 0.1s color; }
+  color: white;
+  -webkit-transition: 0.1s border-color;
+  -moz-transition: 0.1s border-color;
+  -o-transition: 0.1s border-color;
+  transition: 0.1s border-color; }
 
 .callout {
   clear: both;
@@ -266,30 +269,6 @@ sub, sup {
 sub {
   top: 0.4rem; }
 
-/* CODE */
-code {
-  background-color: #1b1918;
-  border-radius: 0.4rem;
-  box-shadow: inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0, 0, 0, 0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255, 255, 255, 0.1);
-  font-family: "SoCoPro", "Consolas", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Courier New", monospace;
-  font-size: 0.9em;
-  padding: 0.6rem 0.6rem 0.4rem;
-  text-shadow: 0.1rem 0.1rem 0.3rem black; }
-
-pre {
-  background-color: #1b1918;
-  border-radius: 1.2rem;
-  box-shadow: inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0, 0, 0, 0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255, 255, 255, 0.1);
-  line-height: 1.2;
-  padding: 1.2rem;
-  overflow-x: auto; }
-  pre code {
-    border-radius: 0;
-    box-shadow: none;
-    font-size: 0.65em;
-    line-height: 1.2;
-    padding: 0; }
-
 /* LISTS */
 dl, ol, ul {
   margin: 0 3.2rem 3.2rem; }
@@ -315,236 +294,260 @@ ul ol {
 ol ul, ul ul {
   list-style: circle; }
 
-.codehilite .c {
+/* CODE */
+code {
+  background-color: #1b1918;
+  border-radius: 0.4rem;
+  box-shadow: inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0, 0, 0, 0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255, 255, 255, 0.1);
+  font-family: "SoCoPro", "Consolas", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  padding: 0.6rem 0.6rem 0.4rem;
+  text-shadow: 0.1rem 0.1rem 0.3rem black; }
+
+pre {
+  background-color: #1b1918;
+  border-radius: 1.2rem;
+  box-shadow: inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0, 0, 0, 0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255, 255, 255, 0.1);
+  line-height: 1.2;
+  padding: 1.2rem;
+  overflow-x: auto; }
+  pre code {
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 0.65em;
+    line-height: 1.2;
+    padding: 0; }
+
+.highlight .c {
   color: #75715e; }
 
 /* Comment */
-.codehilite .err {
+.highlight .err {
   color: #960050;
   background-color: #1e0010; }
 
 /* Error */
-.codehilite .k {
+.highlight .k {
   color: #66d9ef; }
 
 /* Keyword */
-.codehilite .l {
+.highlight .l {
   color: #ae81ff; }
 
 /* Literal */
-.codehilite .n {
+.highlight .n {
   color: #f8f8f2; }
 
 /* Name */
-.codehilite .o {
+.highlight .o {
   color: #f92672; }
 
 /* Operator */
-.codehilite .p {
+.highlight .p {
   color: #f8f8f2; }
 
 /* Punctuation */
-.codehilite .cm {
+.highlight .cm {
   color: #75715e; }
 
 /* Comment.Multiline */
-.codehilite .cp {
+.highlight .cp {
   color: #75715e; }
 
 /* Comment.Preproc */
-.codehilite .c1 {
+.highlight .c1 {
   color: #75715e; }
 
 /* Comment.Single */
-.codehilite .cs {
+.highlight .cs {
   color: #75715e; }
 
 /* Comment.Special */
-.codehilite .ge {
+.highlight .ge {
   font-style: italic; }
 
 /* Generic.Emph */
-.codehilite .gs {
+.highlight .gs {
   font-weight: bold; }
 
 /* Generic.Strong */
-.codehilite .kc {
+.highlight .kc {
   color: #66d9ef; }
 
 /* Keyword.Constant */
-.codehilite .kd {
+.highlight .kd {
   color: #66d9ef; }
 
 /* Keyword.Declaration */
-.codehilite .kn {
+.highlight .kn {
   color: #f92672; }
 
 /* Keyword.Namespace */
-.codehilite .kp {
+.highlight .kp {
   color: #66d9ef; }
 
 /* Keyword.Pseudo */
-.codehilite .kr {
+.highlight .kr {
   color: #66d9ef; }
 
 /* Keyword.Reserved */
-.codehilite .kt {
+.highlight .kt {
   color: #66d9ef; }
 
 /* Keyword.Type */
-.codehilite .ld {
+.highlight .ld {
   color: #e6db74; }
 
 /* Literal.Date */
-.codehilite .m {
+.highlight .m {
   color: #ae81ff; }
 
 /* Literal.Number */
-.codehilite .s {
+.highlight .s {
   color: #e6db74; }
 
 /* Literal.String */
-.codehilite .na {
+.highlight .na {
   color: #a6e22e; }
 
 /* Name.Attribute */
-.codehilite .nb {
+.highlight .nb {
   color: #f8f8f2; }
 
 /* Name.Builtin */
-.codehilite .nc {
+.highlight .nc {
   color: #a6e22e; }
 
 /* Name.Class */
-.codehilite .no {
+.highlight .no {
   color: #66d9ef; }
 
 /* Name.Constant */
-.codehilite .nd {
+.highlight .nd {
   color: #a6e22e; }
 
 /* Name.Decorator */
-.codehilite .ni {
+.highlight .ni {
   color: #f8f8f2; }
 
 /* Name.Entity */
-.codehilite .ne {
+.highlight .ne {
   color: #a6e22e; }
 
 /* Name.Exception */
-.codehilite .nf {
+.highlight .nf {
   color: #a6e22e; }
 
 /* Name.Function */
-.codehilite .nl {
+.highlight .nl {
   color: #f8f8f2; }
 
 /* Name.Label */
-.codehilite .nn {
+.highlight .nn {
   color: #f8f8f2; }
 
 /* Name.Namespace */
-.codehilite .nx {
+.highlight .nx {
   color: #a6e22e; }
 
 /* Name.Other */
-.codehilite .py {
+.highlight .py {
   color: #f8f8f2; }
 
 /* Name.Property */
-.codehilite .nt {
+.highlight .nt {
   color: #f92672; }
 
 /* Name.Tag */
-.codehilite .nv {
+.highlight .nv {
   color: #f8f8f2; }
 
 /* Name.Variable */
-.codehilite .ow {
+.highlight .ow {
   color: #f92672; }
 
 /* Operator.Word */
-.codehilite .w {
+.highlight .w {
   color: #f8f8f2; }
 
 /* Text.Whitespace */
-.codehilite .mf {
+.highlight .mf {
   color: #ae81ff; }
 
 /* Literal.Number.Float */
-.codehilite .mh {
+.highlight .mh {
   color: #ae81ff; }
 
 /* Literal.Number.Hex */
-.codehilite .mi {
+.highlight .mi {
   color: #ae81ff; }
 
 /* Literal.Number.Integer */
-.codehilite .mo {
+.highlight .mo {
   color: #ae81ff; }
 
 /* Literal.Number.Oct */
-.codehilite .sb {
+.highlight .sb {
   color: #e6db74; }
 
 /* Literal.String.Backtick */
-.codehilite .sc {
+.highlight .sc {
   color: #e6db74; }
 
 /* Literal.String.Char */
-.codehilite .sd {
+.highlight .sd {
   color: #e6db74; }
 
 /* Literal.String.Doc */
-.codehilite .s2 {
+.highlight .s2 {
   color: #e6db74; }
 
 /* Literal.String.Double */
-.codehilite .se {
+.highlight .se {
   color: #ae81ff; }
 
 /* Literal.String.Escape */
-.codehilite .sh {
+.highlight .sh {
   color: #e6db74; }
 
 /* Literal.String.Heredoc */
-.codehilite .si {
+.highlight .si {
   color: #e6db74; }
 
 /* Literal.String.Interpol */
-.codehilite .sx {
+.highlight .sx {
   color: #e6db74; }
 
 /* Literal.String.Other */
-.codehilite .sr {
+.highlight .sr {
   color: #e6db74; }
 
 /* Literal.String.Regex */
-.codehilite .s1 {
+.highlight .s1 {
   color: #e6db74; }
 
 /* Literal.String.Single */
-.codehilite .ss {
+.highlight .ss {
   color: #e6db74; }
 
 /* Literal.String.Symbol */
-.codehilite .bp {
+.highlight .bp {
   color: #f8f8f2; }
 
 /* Name.Builtin.Pseudo */
-.codehilite .vc {
+.highlight .vc {
   color: #f8f8f2; }
 
 /* Name.Variable.Class */
-.codehilite .vg {
+.highlight .vg {
   color: #f8f8f2; }
 
 /* Name.Variable.Global */
-.codehilite .vi {
+.highlight .vi {
   color: #f8f8f2; }
 
 /* Name.Variable.Instance */
-.codehilite .il {
+.highlight .il {
   color: #ae81ff; }
 
 /* Literal.Number.Integer.Long */
@@ -581,15 +584,15 @@ ol ul, ul ul {
   content: attr(data-icon);
   speak: none; }
 
-.colophon {
-  padding-top: 6.4rem;
-  text-align: center; }
-
 header {
   padding: 3.2rem 0; }
 
 .frontpage {
   padding-bottom: 0; }
+
+.colophon {
+  padding-top: 9.2rem;
+  text-align: center; }
 
 .content {
   padding: 3.2rem 0 6.4rem; }
@@ -600,6 +603,7 @@ footer {
   text-align: center; }
   footer [class*='icon-'] {
     height: 4.4rem;
+    padding: 0;
     width: 4.4rem; }
 
 .ackbar {
