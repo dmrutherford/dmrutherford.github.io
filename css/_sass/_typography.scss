@@ -77,27 +77,19 @@ a {
 	color:				white;
 	display:			block;
 	padding-left:		1.4rem;
-	-webkit-transition:	0.5s border-color,
-						0.5s color;
-	-moz-transition:	0.5s border-color,
-						0.5s color;
-	-o-transition:		0.5s border-color,
-						0.5s color;
-	transition:			0.5s border-color,
-						0.5s color;
+	-webkit-transition:	0.5s border-color;
+	-moz-transition:	0.5s border-color;
+	-o-transition:		0.5s border-color;
+	transition:			0.5s border-color;
 }
 
-.post-link:hover {
+.post-link:hover, .post-link:active {
 	border-color:		white;
-	color:				$blue-light;
-	-webkit-transition:	0.1s border-color,
-						0.1s color;
-	-moz-transition:	0.1s border-color,
-						0.1s color;
-	-o-transition:		0.1s border-color,
-						0.1s color;
-	transition:			0.1s border-color,
-						0.1s color;
+	color:				white;
+	-webkit-transition:	0.1s border-color;
+	-moz-transition:	0.1s border-color;
+	-o-transition:		0.1s border-color;
+	transition:			0.1s border-color;
 }
 
 .callout {
