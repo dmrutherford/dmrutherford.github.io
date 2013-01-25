@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://git.dmrutherford.com/sitemap.xml
