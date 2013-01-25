@@ -1,134 +1,28 @@
 ---
-layout: default
+layout: base
 slug: frontpage
 ---
 
-<p>As much as I hate doing it, I should test nesting. Bleurgh. <em>Here's emphasised text with <i>italic</i></em>, and <i>here's the <em>opposite</em></i>. Here's a <q>quotation with <q>a quotation</q> inside</q>.</p>
+<p>The best way to teach is by example, and the best way to learn is from mistakes. To that end, I present to you all a collection of ill-informed thoughts and ill-formed code snippets.</p>
 
 <hr />
 
-<div class="codehilite"><pre><code class="php"><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">A_Request</span> <span class="p">{</span>
+<h2>The latest from the echo&nbsp;chamber</h2>
 
-    <span class="k">private</span> <span class="nv">$_fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;title&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fullname&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;company&#39;</span><span class="p">,</span>
-      <span class="p">);</span>
+{% for post in site.posts limit:3 %}
 
-    <span class="k">private</span> <span class="nv">$_optional_fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;company&#39;</span><span class="p">,</span>
-    <span class="p">);</span>
+<a class="post-link" href="{{ post.url }}">
 
-    <span class="k">private</span> <span class="nv">$_specific_validations</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;valid_email&#39;</span><span class="p">,</span>
-    <span class="p">);</span>
+	<h3 class="post-link-title">{{ post.title }}</h3>
+	
+	<p>{{ post.description }}</p>
 
-    <span class="k">private</span> <span class="nv">$_request</span><span class="p">;</span>
+</a>
 
-    <span class="k">private</span> <span class="nv">$_errors</span><span class="p">;</span>
+{% endfor %}
 
-    <span class="k">private</span> <span class="nv">$_model</span><span class="p">;</span>
+<a class="callout" href="/echoes/">See more&hellip;</a>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_request</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span>  <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-    <span class="p">}</span>
+<hr />
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">initialize</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_fields</span> <span class="k">as</span> <span class="nv">$field</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">in_array</span><span class="p">(</span><span class="nv">$field</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_optional_fields</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="nv">$field</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_validation_exceptions</span><span class="p">))</span> <span class="p">{</span>
-                    <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_validation_exceptions</span><span class="p">[</span><span class="nv">$field</span><span class="p">];</span>
-                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$method</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">]);</span>
-                    <span class="k">continue</span><span class="p">;</span>
-                <span class="p">}</span>
-
-                <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">])</span> <span class="k">AND</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">]))</span> <span class="p">{</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="nv">$field</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_specific_validations</span><span class="p">))</span> <span class="p">{</span>
-                        <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_specific_validations</span><span class="p">[</span><span class="nv">$field</span><span class="p">];</span>
-                        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$method</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">]);</span>
-                    <span class="p">}</span>
-                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_request</span><span class="p">[</span><span class="nv">$field</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">];</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span><span class="p">[</span><span class="nv">$field</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;error&#39;</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">]))</span> <span class="p">{</span>
-                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_request</span><span class="p">[</span><span class="nv">$field</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="nv">$field</span><span class="p">];</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_fields</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_request</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_request</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_fields</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_errors</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span><span class="p">[</span><span class="s1">&#39;has_errors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">valid_email</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$valid</span> <span class="o">=</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">preg_match</span><span class="p">(</span>
-            <span class="s2">&quot;/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix&quot;</span><span class="p">,</span> 
-            <span class="nv">$str</span>
-        <span class="p">)</span> <span class="p">)</span> <span class="o">?</span> <span class="k">FALSE</span> <span class="o">:</span> <span class="k">TRUE</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$valid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;error&#39;</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">is_valid</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_errors</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">set_model</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_model</span> <span class="o">=</span> <span class="nv">$model</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_model</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_request</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_model</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque, <code>neque</code> a accumsan dictum, nulla libero vehicula enim, vel molestie neque odio vitae erat. Sed pulvinar justo ut mi posuere sagittis. Maecenas pretium aliquet eros, non cursus risus viverra ut. Ut feugiat semper bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dapibus ornare ligula, quis luctus erat molestie in. Nullam id neque vel quam euismod pretium. Nam quis sollicitudin ipsum. Phasellus bibendum, nunc non pretium mattis, leo neque posuere magna, scelerisque cursus tortor ante a lectus. Proin nulla enim, ornare in imperdiet vitae, imperdiet sit amet eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-
-<blockquote><p>Aliquam a ante ut nunc facilisis blandit. Duis iaculis, justo quis commodo consectetur, nulla diam interdum ante, quis facilisis metus mauris ac dui. Proin vulputate ullamcorper nunc, eu aliquam nibh pellentesque quis. Phasellus tempor augue nec nibh pretium ac ultrices enim placerat. Nam varius, leo eget viverra rutrum, tortor felis tristique enim, in pulvinar eros neque pharetra est. Quisque quam est, eleifend ut bibendum eget, pharetra nec ipsum. Phasellus mattis molestie mauris sed accumsan. Cras auctor, eros et rutrum condimentum, sapien nunc elementum nisl, vel viverra velit ipsum sed tortor. In eleifend elementum tincidunt. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc at sem justo.</p></blockquote>
-
-<pre><code>Nam mollis mi in leo dapibus sit amet blandit
-nisi cursus. Donec sit amet erat eu enim
-tristique eleifend. Nam ut ligula ipsum.
-Nulla eu libero sed mauris congue consequat.
-In in augue vel felis molestie viverra vel
-vitae lectus. Mauris dignissim orci quam, at
-laoreet mi. Nam quis sem nisl. Aliquam
-ullamcorper condimentum velit a ultrices.
-Morbi blandit accumsan enim eu sagittis.
-Vivamus nunc ante, fermentum ac dignissim
-viverra, varius quis urna.</code></pre>
-
-<p>Donec sit amet augue eu nisl feugiat fermentum eget at nunc. Etiam vitae ligula eros, vel pulvinar purus. Integer leo nibh, pellentesque id sodales nec, convallis vitae sapien. Etiam placerat dapibus nisl, in porta arcu aliquam ac. Morbi nibh nunc, viverra sit amet pellentesque vel, accumsan ut tortor. Morbi viverra dolor id est pulvinar at adipiscing velit gravida. Phasellus fringilla mi nec sapien commodo id adipiscing dui lobortis.</p>
-
-<p>Nulla massa leo, tempus non euismod ut, pretium vel lorem. Ut ultrices nibh ac tellus vestibulum vestibulum. Phasellus ac nisl ipsum, vitae condimentum justo. Sed ante velit, rhoncus eu varius sit amet, ultrices volutpat mauris. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Integer ut est neque. Nulla augue sapien, dapibus eget porttitor at, luctus et elit. Maecenas rhoncus lectus sed ipsum viverra vel pulvinar leo blandit. Suspendisse elit arcu, tristique eu venenatis sed, ultricies nec nunc. Aliquam malesuada lobortis ante vitae laoreet.</p>
+<h2>Projects</h2>
