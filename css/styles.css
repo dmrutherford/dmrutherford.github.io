@@ -109,7 +109,7 @@ html {
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
     html {
       background: url("/img/corduroy@2x.png");
-      background-size: 12.8rem 12.8rem; } }
+      background-size: 128px 128px; } }
   @media (min-width: 38em) {
     html {
       font-size: 62.5%; } }
@@ -117,10 +117,6 @@ html {
     html {
       font-size: 75%; } }
 
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
-  html {
-    background: url("/img/corduroy@2x.png");
-    background-size: 12.8rem 12.8rem; } }
 body {
   font-family: "LinLib", "Cambria", "Hoefler Text", "Liberation Serif", "Times New Roman", "Times", serif;
   font-size: 2rem;
@@ -143,7 +139,7 @@ body {
 .header-large {
   display: inline-block;
   font-size: 6.4rem;
-  padding-top: 6.4rem; }
+  padding-top: 5.2rem; }
 
 .header-small {
   font-size: 2.4rem;
