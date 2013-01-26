@@ -10,7 +10,7 @@ html {
 	
 	@media (-webkit-min-device-pixel-ratio : 1.5), (min-device-pixel-ratio : 1.5) {
 		background:				$corduroy-2x;
-		background-size:		12.8rem 12.8rem;
+		background-size:		128px 128px;
 	}
 	
 	@media (min-width: 38em) {
@@ -21,15 +21,6 @@ html {
 		font-size:				75%;
 	}
 }
-
-	@media (-webkit-min-device-pixel-ratio : 1.5), (min-device-pixel-ratio : 1.5) {
-		
-		html {
-			background:			$corduroy-2x;
-			background-size:	12.8rem 12.8rem;
-		}
-		
-	}
 
 body {
 	font-family:	$serif;
