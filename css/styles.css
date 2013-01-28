@@ -160,7 +160,8 @@ body {
   font-family: "SoCoPro", "Consolas", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Courier New", monospace; }
 
 .post-link-title {
-  margin: 3.2rem 0 0; }
+  margin: 3.2rem 0 0;
+  padding-top: 0.2rem; }
 
 /* LINKS */
 a {
