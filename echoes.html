@@ -6,4 +6,14 @@ description: Teach by example; learn from mistakes.
 permalink: echoes/
 ---
 
-<p>These are the echoes.</p>
+{% for post in site.posts %}
+
+<a class="post-link" href="{{ post.url }}">
+
+	<h3 class="post-link-title">{{ post.title }}</h3>
+	
+	<p>{{ post.description }}</p>
+
+</a>
+
+{% endfor %}
