@@ -110,10 +110,10 @@ html {
     html {
       background: url("/img/corduroy@2x.png");
       background-size: 128px 128px; } }
-  @media (min-width: 38em) {
+  @media (min-width: 40em) {
     html {
       font-size: 62.5%; } }
-  @media (min-width: 46em) {
+  @media (min-width: 60em) {
     html {
       font-size: 75%; } }
 
@@ -151,7 +151,10 @@ body {
 /* OTHER HEADERS */
 .page-header, .post-header, h2, h3 {
   line-height: 1.2;
-  margin: 6.4rem 0 1.6rem; }
+  margin: 6.4rem 0 3.2rem; }
+
+h2 + h3, ol h2, ol h3, ul h2, ul h3 {
+  margin-top: 3.2rem; }
 
 .page-header, .post-header {
   font-size: 3.2rem; }
@@ -294,6 +297,9 @@ ul ol {
 ol ul, ul ul {
   list-style: circle; }
 
+ol p + ol, ol p + ul, ul p + ol, ul p + ul {
+  margin-top: -3.2rem; }
+
 /* CODE */
 code {
   background-color: #1b1918;
@@ -316,7 +322,7 @@ pre {
     box-shadow: none;
     line-height: 1.2;
     padding: 0; }
-    @media (min-width: 38em) {
+    @media (min-width: 40em) {
       pre code {
         font-size: 0.65em; } }
 

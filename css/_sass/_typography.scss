@@ -33,8 +33,12 @@
 
 .page-header, .post-header, h2, h3 {
 	line-height:	1.2;
-	margin:			6.4rem 0 1.6rem;
+	margin:			6.4rem 0 3.2rem;
 }
+
+	h2 + h3, ol h2, ol h3, ul h2, ul h3 {
+		margin-top:	3.2rem;
+	}
 
 .page-header, .post-header {
 	font-size:		3.2rem;
@@ -226,6 +230,10 @@ ul {
 	ol ul, ul ul {
 		list-style:	circle;
 	}
+	
+	ol p + ol, ol p + ul, ul p + ol, ul p + ul {
+		margin-top: -3.2rem;
+	}
 
 
 /* CODE */
@@ -257,7 +265,7 @@ pre {
 		line-height:	1.2;
 		padding:		0;
 		
-		@media (min-width: 38em) {
+		@media (min-width: $break-1) {
 			font-size:	0.65em;
 		}
 	}

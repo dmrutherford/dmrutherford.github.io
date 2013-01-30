@@ -13,11 +13,11 @@ html {
 		background-size:		128px 128px;
 	}
 	
-	@media (min-width: 38em) {
+	@media (min-width: $break-1) {
 		font-size:				62.5%;
 	}
 	
-	@media (min-width: 46em) {
+	@media (min-width: $break-2) {
 		font-size:				75%;
 	}
 }
