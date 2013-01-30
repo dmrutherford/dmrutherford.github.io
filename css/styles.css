@@ -297,7 +297,7 @@ code {
   border-radius: 0.4rem;
   box-shadow: inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0, 0, 0, 0.3), 0.1rem 0.1rem -0.1rem 0.1rem rgba(255, 255, 255, 0.1);
   font-family: "SoCoPro", "Consolas", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Courier New", monospace;
-  font-size: 0.9em;
+  font-size: 0.85em;
   padding: 0.6rem 0.6rem 0.4rem;
   text-shadow: 0.1rem 0.1rem 0.3rem black; }
 
@@ -311,9 +311,11 @@ pre {
   pre code {
     border-radius: 0;
     box-shadow: none;
-    font-size: 0.65em;
     line-height: 1.2;
     padding: 0; }
+    @media (min-width: 38em) {
+      pre code {
+        font-size: 0.65em; } }
 
 .highlight .c {
   color: #75715e; }
