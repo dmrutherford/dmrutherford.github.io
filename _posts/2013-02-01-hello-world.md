@@ -18,12 +18,12 @@ not like I know how to write most of these myself&hellip;
 C
 -
 
-~~~c
+```c
 main()
  {
         printf("hello, world");
  }
-~~~
+```
 
 
 <abbr class="acronym">HTML</abbr>
