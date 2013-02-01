@@ -10,7 +10,7 @@ technical to fit with the rest of the content on my main blog, [The View from
 Nobody](http://www.dmrutherford.com/).
 
 As a disclaimer, much of the code up here is inelegant and inefficient. However,
-I&rsquo;ve leardned a lot from looking at how other people approach problems,
+I&rsquo;ve learned a lot from looking at how other people approach problems,
 and I hope that this will prove useful to somebody.
 
 If you can&rsquo;t do, teach; and if you can&rsquo;t teach, blog about it.
