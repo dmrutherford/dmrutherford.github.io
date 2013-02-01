@@ -5,7 +5,7 @@ description: First post.
 ---
 
 
-<q>First post</q>. Don&rsquo;t you just hate it when commenters say that?
+First post. Don&rsquo;t you just hate it when commenters say that?
 Anyway, this is my first post up here. I am aware -- in case you were wondering,
 -- that <cite class="subpart">hello world</cite> is a pretty uninspired title.
 
@@ -18,12 +18,12 @@ not like I know how to write most of these myself&hellip;
 C
 -
 
-```c
+~~~c
 main()
  {
         printf("hello, world");
  }
-```
+~~~
 
 
 <abbr class="acronym">HTML</abbr>
