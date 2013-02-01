@@ -1,0 +1,272 @@
+/* MAIN HEAD */
+
+[class*='header-'] {
+	color:			#111;
+	line-height:	1.2;
+	
+	&:visited {
+		color: #111;
+	}
+	
+	&:hover, &:active {
+		color: $blue-light;
+	}
+}
+
+.header-large {
+	display:		inline-block;
+	font-size:		6.4rem;
+	padding-top:	5.2rem;
+}
+
+.header-small {
+	font-size:		2.4rem;
+	margin-left:	1.6rem;
+}
+
+.permafrost {
+	color:	white;
+}
+
+
+/* OTHER HEADERS */
+
+.page-header, .post-header, h2, h3 {
+	line-height:	1.2;
+	margin:			6.4rem 0 3.2rem;
+}
+
+	h2 + h3, ol h2, ol h3, ul h2, ul h3 {
+		margin-top:	3.2rem;
+	}
+
+.page-header, .post-header {
+	font-size:		3.2rem;
+}
+
+.page-header {
+	font-family:	$mono;
+}
+
+.post-header {
+	padding-bottom:	0.8rem;
+}
+
+.post-link-title {
+	margin:			3.2rem 0 0;
+	padding-top:	0.5rem;
+}
+
+
+/* LINKS */
+
+a {
+	color:				$blue;
+	text-decoration:	none;
+	-webkit-transition:	0.5s color;
+	-moz-transition:	0.5s color;
+	-o-transition:		0.5s color;
+	transition:			0.5s color;
+	
+	&:visited {
+		color:	$blue-dark;
+	}
+	
+	&:hover, &:active {
+		color:	$blue-light;
+		-webkit-transition:	0.1s color;
+		-moz-transition:	0.1s color;
+		-o-transition:		0.1s color;
+		transition:			0.1s color;
+	}
+}
+
+.post-link, .post-link:visited, {
+	border-left:		0.2rem solid rgba(255,255,255,0.25);
+	color:				white;
+	display:			block;
+	padding-left:		1.4rem;
+	-webkit-transition:	0.5s border-color;
+	-moz-transition:	0.5s border-color;
+	-o-transition:		0.5s border-color;
+	transition:			0.5s border-color;
+}
+
+.post-link:hover, .post-link:active {
+	border-color:		white;
+	color:				white;
+	-webkit-transition:	0.1s border-color;
+	-moz-transition:	0.1s border-color;
+	-o-transition:		0.1s border-color;
+	transition:			0.1s border-color;
+}
+
+.callout {
+	clear:		both;
+	display:	block;
+	font-style:	italic;
+	text-align:	right;
+}
+
+
+/* EMBOLDENED */
+
+b, strong {
+	font-weight: bold;
+}
+
+
+/* ITALICISED */
+
+.full-work, dt, em, h3, i, var {
+	font-style: italic;
+}
+
+	.full-work em, .full-work i, .full-work var, dt .full-work, dt em, dt i, dt var, em .full-work, em i, em var, h3 .full-work, h3 em, h3 i, h3 var, i .full-work, i em, i var {
+		font-style: normal;
+	}
+
+
+/* QUOTED */
+
+.subpart:before, q:before {
+	content: '\2018';
+}
+
+.subpart:after, q:after {
+	content: '\2019';
+}
+
+.subpart q:before, q q:before {
+	content: '\201C';
+}
+
+.subpart q:after, q q:after {
+	content: '\201D';
+}
+
+
+/* SMALL CAPS */
+
+.acronym, .small-caps, h2 {
+	font-variant:	small-caps;
+	letter-spacing:	0.15em;
+	text-transform:	lowercase;
+}
+
+
+/* GENERIC */
+
+blockquote {
+	font-size:		0.9em;
+	line-height:	1.4;
+	margin:			0 3.2rem;
+}
+
+p, pre {
+	margin-bottom:	3.2rem;
+}
+
+hr {
+	margin:		3.2rem auto;
+	opacity:	0.25;
+	width:		3.2rem;
+}
+
+	hr + h2, hr + h3 {
+		margin-top:	3.2rem;
+	}
+
+img {
+	display:	block;
+	max-width:	100%;
+}
+
+small {
+	font-size:	0.75em;
+}
+	
+sub, sup {
+	font-size:	0.75em;
+	position:	relative;
+	top:		-0.6rem;
+}
+
+	sub {
+		top:	0.4rem;
+	}
+
+
+/* LISTS */
+
+dl, ol, ul {
+	margin:	0 3.2rem 3.2rem;
+}
+
+dd {
+	margin-left:	3.2rem;
+}
+
+ol {
+	list-style:	decimal;
+}
+
+ul {
+	list-style:	disc;
+}
+
+	ol ol, ol ul, ul ol, ul ul {
+		margin:	0 3.2rem;
+	}
+	
+	ol ol {
+		list-style:	lower-alpha;
+	}
+	
+	ul ol {
+		list-style:	lower-roman;
+	}
+	
+	ol ul, ul ul {
+		list-style:	circle;
+	}
+	
+	ol p + ol, ol p + ul, ul p + ol, ul p + ul {
+		margin-top: -3.2rem;
+	}
+
+
+/* CODE */
+
+code {
+	background-color:	#1b1918;
+	border-radius:		0.4rem;
+	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.3),
+						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.1);
+	font-family:		$mono;
+	font-size:			0.85em;
+	padding:			0.6rem 0.6rem 0.4rem;
+	text-shadow:		0.1rem 0.1rem 0.3rem darken(#1b1918, 25%);
+}
+
+pre {
+	background-color:	#1b1918;
+	border-radius:		1.2rem;
+	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.35),
+						-0.1rem -0.1rem -0.1rem 0.1rem rgba(255,255,255,0.06),
+						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.12);
+	line-height:		1.2;
+	padding:			1.2rem;
+	overflow-x:			auto;
+	
+	& code {
+		border-radius:	0;
+		box-shadow:		none;
+		line-height:	1.2;
+		padding:		0;
+		
+		@media (min-width: $break-1) {
+			font-size:	0.65em;
+		}
+	}
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+	<head>
+	
+		<meta charset="UTF-8" />
+		
+		<title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.site-title }}</title>
+			
+			<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.site-description }}{% endif %}" />
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="forkThis, by D M Rutherford" />
+		
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+		
+		<!-- Google Analytics -->
+	
+	</head>
+	
+	<body>
+	
+		<div class="ackbar">
+		
+			<header class="group{% if page.slug == 'frontpage' %} frontpage{% endif %}">
+			
+				{% if page.slug == 'frontpage' %}<h1><a class="header-large" href="/">fork<span class="permafrost">This</span></a></h1>{% else %}<a class="icon-up" href="../" title="Up one level"><span aria-hidden="true" data-icon="u"></span><span class="screen-reader-text">Up one level</span></a>{% if page.slug != 'colophon' %}<a class="header-small" href="/" title="Make like ET">fork<span class="permafrost">This</span></a>{% endif %}{% endif %}
+			
+			</header>
+			
+			<div class="content{% if page.slug == 'colophon' %} colophon{% endif %} group">
+			
+{{ content }}
+			
+			</div><!-- content -->{% if page.slug != 'colophon' %}
+			
+			<div class="push">
+			
+			</div><!-- push -->{% endif %}
+		
+		</div><!-- ackbar -->{% if page.slug != 'colophon' %}
+		
+		<footer>
+		
+			<a class="icon-colophon" href="/colophon/" title="View the site colophon"><span aria-hidden="true" data-icon="i"></span><span class="screen-reader-text">Colophon</span></a><a class="icon-twitter" href="https://twitter.com/DMRutherford/" title="Follow me on Twitter"><span aria-hidden="true" data-icon="t"></span><span class="screen-reader-text">Twitter</span></a><a class="icon-github" href="https://github.com/dmrutherford/" title="Fork me on GitHub"><span aria-hidden="true" data-icon="g"></span><span class="screen-reader-text">GitHub</span></a><a class="icon-rss" href="/feed.xml" title="Subscribe to the echoes"><span aria-hidden="true" data-icon="r"></span><span class="screen-reader-text">RSS</span></a>
+		
+		</footer>{% endif %}
+	
+	</body>
+
+</html>

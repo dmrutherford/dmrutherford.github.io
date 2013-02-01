@@ -1,0 +1,40 @@
+.screen-reader-text {
+	position:	absolute;
+	top:		-9999px;
+	left:		-9999px;
+}
+
+.group:after {
+	content:	'';
+	display:	table;
+	clear:		both;
+}
+
+[class*='icon-'] {
+	color:				white;
+	display:			inline-block;
+	opacity:			0.25;
+	-webkit-transition:	0.5s opacity;
+	-moz-transition:	0.5s opacity;
+	-o-transition:		0.5s opacity;
+	transition:			0.5s opacity;
+	
+	&:visited {
+		color:	inherit;
+	}
+	
+	&:hover, &:active {
+		color:				inherit;
+		opacity:			1;
+		-webkit-transition:	0.1s opacity;
+		-moz-transition:	0.1s opacity;
+		-o-transition:		0.1s opacity;
+		transition:			0.1s opacity;
+	}
+}
+
+[data-icon]:before {
+	font-family:	$icons;
+	content:		attr(data-icon);
+	speak:			none;
+}

@@ -1,0 +1,51 @@
+// COLOURS
+
+$blue:			#2385b8;
+$blue-light:	lighten($blue, 10%);
+$blue-dark:		darken($blue, 10%);
+$bg-grey:		#292929;
+
+
+// FONTS
+
+$serif:	'LinLib',
+		'Cambria',
+		'Hoefler Text',
+		'Liberation Serif',
+		'Times New Roman',
+		'Times',
+		serif;
+
+$sans:	'Myriad Pro',
+		'Myriad',
+		'Frutiger',
+		'Gill Sans',
+		'Gill Sans MT',
+		'Calibri',
+		'DejaVu Sans',
+		'Liberation Sans',
+		'Tahoma',
+		sans-serif;
+
+$mono:	'SoCoPro',
+		'Consolas',
+		'Andale Mono',
+		'Lucida Console',
+		'DejaVu Sans Mono',
+		'Courier New',
+		monospace;
+
+$icons:	'forkons';
+
+
+// IMAGES
+
+$corduroy: 		url('/img/corduroy.png');
+$corduroy-2x: 	url('/img/corduroy@2x.png');
+
+
+// SIZES
+
+$footer-height:	8.6rem;
+$break-1:		40em;
+$break-2:		60em;
