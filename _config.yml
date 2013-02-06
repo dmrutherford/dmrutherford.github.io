@@ -1,4 +1,4 @@
-exclude: README.md, CNAME
+exclude: README.md
 permalink: /echo/:title
 site-description: Where bad code comes to die.
 site-title: forkThis, by D M Rutherford
