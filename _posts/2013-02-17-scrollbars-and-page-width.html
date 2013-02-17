@@ -1,0 +1,43 @@
+---
+layout: post
+title: Scrollbars and Page Width
+description: A brief discussion of the different ways Gecko and WebKit report the browser width, and what that means for breakpoints.
+---
+
+<p>When I did the new design for the <a href="http://www.dmrutherford.com/"><cite>View from Nobody</cite></a>, I was keen to make things at least partially responsive. It&rsquo;s hardly the most sophisticated layout ever, and there are no radical reshuffles as the viewport size changes, but it does fit to the appropriate size. The magic behind this was <abbr class="acronym">CSS</abbr> media queries with a <code>min-width</code> setting.</p>
+
+<p>My go-to browser is Chrome, so that&rsquo;s what I was working in when I was checking the layout. I thought I had everything set just right: as I resized the browser window, things would switch to the new layout at just the right moment. However, when I went to check things in Firefox, all was not well. I would resize, and everything would appear fine, but just as the media query fired the layout would break. If I continued to resize, things would suddenly fix themselves again. Very frustrating.</p>
+
+<p>It turns out that the reason behind this is a difference in the way that Gecko and WebKit report the width of the browser window. Specifically, WebKit reports the width as being the visible width, discounting the width of any scrollbars if they&rsquo;re shown. Gecko, on the other hand, reports the full width of the browser, regardless of whether any scrollbars are shown.</p>
+
+<p>The net result of this is that if you have Chrome and Firefox sized the same, and both showing a vertical scrollbar, then Chrome will report a lower width than Firefox. However, although the reported size is different, both Gecko and WebKit will fit the layout into the available visible space, discounting the width of the scrollbar.</p>
+
+<p>I had my media queries set to fire just as I needed them &ndash; in Chrome. So as soon as the browser width reached <code>42em</code>, say, the layout would expand to take up <code>42em</code>. All well and good, except that in Firefox, the available space would be <code>17px</code> smaller thanks to the scrollbar, and the <code>42em</code> layout would be trying to fit into <code>40.9375em</code>, and would break. If I kept resizing past that additional <code>17px</code>, it would suddenly have enough space to play with and work fine.</p>
+
+<hr />
+
+<p>So which method is right, and which is better? Well, according to the actual spec, Gecko is right. The width reported is to be the width of the browser window, ignoring any scrollbars. But is that better? My first intuitive thought on this was that the WebKit method was more sensible; after all, what matters from a design point of view is the actually available width, discounting for any browser chrome.</p>
+
+<p>I was wrong about that, though. The Gecko method is correct <em>and</em> better. It&rsquo;s better because it&rsquo;s more consistent. To see why, let&rsquo;s try a little thought experiment.</p>
+
+<p>Suppose you have a breakpoint at <code>42em</code>; and suppose that in the smaller width layout the content fits without needing a vertical scrollbar, but that in the larger width layout it doesn&rsquo;t. That&rsquo;s not entirely unlikely: we often want to increase the font size for larger viewports.</p>
+
+<p>We resize the screen to be just over <code>42em</code> wide. The media query fires, and a vertical scrollbar appears. Now if we&rsquo;re using Gecko, the story ends here. All is well and good.</p>
+
+<p>If we&rsquo;re using WebKit, though, then the appearance of the scrollbar changes the reported width. And if we&rsquo;re only just wider than the <code>min-width</code> value, then it will change the reported width to the point that the media query fires. And then the layout will change and the scrollbar will disappear, changing the width. And that will fire the media query. And that will cause the scrollbar to reappear, changing the width. And that will fire the media query&hellip; &amp;c., &amp;c..</p>
+
+<p>This is empirically testable. It seems like Chrome does a good job of stopping the loop (it seems to default to just showing the scrollbar), but it&rsquo;s hardly ideal. I suspect the reason for this is that WebKit is coloured quite heavily by (Mobile) Safari, where the scrollbars actually <em>don&rsquo;t</em> impact on the width, but just appear over any content and disappear again when not in use.</p>
+
+<hr />
+
+<p>So how to deal with the issue? First up, you might want to force a vertical scrollbar. If you&rsquo;re using <code>margin: auto;</code> to centre things, that might be a good idea anyway. Easy enough to do these days:</p>
+
+{% highlight css %}
+html {
+    overflow-y: scroll;
+}
+{% endhighlight %}
+
+<p>That solves the Flickering Scrollbar of Doom. But it doesn&rsquo;t solve the original issue of the layout breaking in Gecko when you&rsquo;re only just past the <code>min-width</code>. For that, I figure you just have to bite the bullet and take account of scrollbars when setting your breakpoints. If you want a layout that fits into <code>42em</code>, set it to trigger at <code>44em</code>. It means things won&rsquo;t fill the available space quite as snappily as they could in WebKit browsers, but that&rsquo;s preferable to having an actively broken layout in Gecko.</p>
+
+<p>Of course, if you&rsquo;re going full responsive and making things all flexible, this is probably a non-issue anyway.</p>
