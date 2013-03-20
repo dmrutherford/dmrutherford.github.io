@@ -1,0 +1,142 @@
+---
+layout: post
+title: Git post-receive Hooks, Pt. 1
+description: Setting up a Git post-receive hook for easy WordPress deployment. Allegedly.
+---
+
+<p>I recently started using Git and have been super impressed, so I thought I&rsquo;d write up a few thoughts on using it for website versioning and deployment. I&rsquo;ll begin at the end of the process (where better?) &ndash; setting up <code>post-receive</code> hooks &ndash; and cover the more basic setting up some other time. Mainly because while the whole process of using Git feels a little like magic, this bit is by far the most magical.</p>
+
+<h2>My Set-Up</h2>
+
+<p>A few brief words about where I&rsquo;m at and what set-up I use. Other than this site, which is at GitHub Pages, I use nearlyfreespeech.net[LINK] for my hosting. I really can&rsquo;t recommend them enough &ndash; I hesitate to use the word cheap, because I think it sends the wrong message, so instead I&rsquo;ll say that they are one of the very few hosts that I consider <em>reasonably priced</em> for small-scale sites. Everybody else screws you.</p>
+
+<p><abbr class="acronym">NFSN</abbr> are pay-as-you-go, whereas most hosts charge a monthly rental fee. It&rsquo;s true that if you used every last drop of storage and bandwidth of your monthly allowance, your costs would probably be lower per unit elsewhere &ndash; but there is essentially a 0% chance of that happening for anybody not running a high-traffic blog or similar. To put things in perspective: the cheapest alternative host I have found costs as much for one site, for one month, as <abbr class="acronym">NFSN</abbr> costs me for <em>all</em> my sites, for an entire <em>year</em>. They also offer <abbr class="acronym">SSH</abbr> as standard, no questions asked.</p>
+
+<p>One last comment in this extended <abbr class="acronym">NFSN</abbr> advert (I swear they don&rsquo;t run an affiliate programme): you might be put off by their lack of 24/7 support. In my time online I&rsquo;ve run into a few problems with webhosts. These things happen. With other hosts &ndash; who allegedly <em>do</em> offer support &ndash; it often took days to get a response, and weeks to get anything done about the issue. Quite literally weeks, during which time the site in question was totally offline.</p>
+
+<p>In my entire time with <abbr class="acronym">NFSN</abbr>, I have had one problem. I put up a message on their support forum, and had a response within an hour. The next morning the issue was fixed. The only reason the fix came the next morning was the time-zone difference: if I lived in the States I&rsquo;d have seen it by the end of the day. <em>That&rsquo;s</em> how you do support.</p>
+
+<p>I discovered Jekyll[LINK] just after I had finished doing a big overhaul of the back- and front-end of the <cite class="full-work">View from Nobody</cite>[LINK], including moving the whole site to WordPress and building a custom theme from scratch. Talk about great timing. The short version of the story is that Jekyll is the bomb, and as soon as I have time I&rsquo;ll be porting the site over to it. In the meantime, Git is still pretty helpful &ndash; particularly during updates, given that I customise some of the core. I <em>was</em> going to set up automatic syncing of the database as well, but then I just got on with my life.</p>
+
+<p>In the meantime, I have most of my sites running on Jekyll, and one running on WordPress. I use different <code>post-receive</code> hooks in each case, so I&rsquo;m splitting this into two parts. The WordPress version is more straightforward (they&rsquo;re both pretty straightforward) so I&rsquo;ll cover it first.</p>
+
+<p>Last note: I&rsquo;m on Windows. I expected this to be a massive headache, but thanks to the shell included with GitHub for Windows, it&rsquo;s actually not been a big deal.</p>
+
+<h2><abbr class="acronym">NFSN</abbr> Directory Structure &amp; Other Quirks</h2>
+
+<h3>Directory Structure</h3>
+
+<p>There are three basic directories on <abbr class="acronym">NFSN</abbr>:</p>
+
+<ul>
+
+<li><p><code>public</code>, which does exactly what you&rsquo;d expect (equivalent to the <code>www</code> directory that some other hosts use);</p></li>
+
+<li><p><code>private</code>, which is roughly equivalent to your <code>home</code> folder on a *nix set-up (appropriately, it&rsquo;s available at <code>$HOME</code> in shell scripts, which is a nice touch);</p></li>
+
+<li><p><code>protected</code>, which I have no idea what it&rsquo;s for. Storing <code>.htpasswd</code>[SPAG!!!] files, maybe? That kind of thing? Dunno. I&rsquo;ve never found a use for it.</p></li>
+
+</ul>
+
+<p>Just to point out, all three of these reside in a root folder called <code>home</code>, so be aware that <code>/home</code> and <code>$HOME</code> are not the same &ndash; the latter is actually <code>/home/private</code>. Clear?</p>
+
+<p>I&rsquo;ve seen a couple of people who, when using Git for deployment, simply make the <code>public</code> folder a repo. No doubt that makes deployment easier, but it seems a little untidy to me &ndash; and is potentially a security risk if people start sniffing around for <code>.git</code>. So I set up the remote in my <code>private</code> folder, and take it from there.</p>
+
+<h3>Gzip Support, or Lack Thereof</h3>
+
+<p>I do have one minor gripe about <abbr class="acronym">NFSN</abbr>: they don&rsquo;t offer on-the-fly server-side compression. Whether it&rsquo;s because they don&rsquo;t charge for server cycles or do charge for bandwidth, I don&rsquo;t know. That means that if you want to serve up your assets Gzipped (and you definitely do, right?) then you need to come up with some other kind of solution.</p>
+
+<p>Since WordPress generates its <abbr class="acronym">PHP</abbr> pages on the fly, there&rsquo;s not an easy answer. Maybe there&rsquo;s a plug-in that generates compressed pages in parallel? Probably. For the sake of a few bytes (and given how little traffic I get) I have better things to do with my life. I include a pre-zipped version of the <abbr class="acronym">CSS</abbr> and JavaScript files. That could probably be automated but I haven&rsquo;t looked into it.</p>
+
+<p>With Jekyll, since the static <abbr class="acronym">HTML</abbr> is generated at compile-time rather than run-time, you can do the Gzipping as part of the <code>post-receive</code> process. More on which in part two.</p>
+
+<h2>A WordPress post-receive Hook</h2>
+
+<p>Finally, the main event. Here&rsquo;s the whole thing in its ten-line entirety:</p>
+
+{% highlight bash %}
+#!/bin/sh
+
+rm -Rf /home/public/*
+rm /home/public/.htaccess
+
+git clone $HOME/.git /home/public
+
+rm -Rf /home/public/.git/objects
+rm -Rf /home/public/.git
+
+rm /home/public/.gitattributes
+rm /home/public/.gitignore
+rm /home/public/README.md
+
+exit
+{% endhighlight %}
+
+<p>Nothing too complicated. At this point I&rsquo;m assuming there is already a remote for your local development repo in <code>$HOME</code>. The words version of what this does is as follows:</p>
+
+<ol>
+
+<li><p>Delete everything that&rsquo;s currently in the <code>public</code> folder;</p></li>
+
+<li><p>Clone the repo from <code>$HOME</code> into the <code>public</code> folder;</p></li>
+
+<li><p>There is not step three. Actually, there is: remove all of the Git-specific files.</p></li>
+
+</ol>
+
+<h3>Line by Line</h3>
+
+{% highlight bash %}
+#!/bin/sh
+{% endhighlight %}
+
+<p><q>Hello this is a shell script so please, like, use Bash.</q></p>
+
+{% highlight bash %}
+rm -Rf /home/public/*
+{% endhighlight %}
+
+<p>Delete everything in the <code>public</code> folder.</p>
+
+{% highlight bash %}
+rm /home/public/.htaccess
+{% endhighlight %}
+
+<p>The previous command ignores dot-files and -folders, so we need to specifically instruct it to remove the <code>.htaccess</code> file. I have multiple such files throughout the directory structure, but the others are all removed when their non-hidden directories get the axe. If you have other dot-files in the root of <code>public</code> then you&rsquo;ll also need to specify them.</p>
+
+{% highlight bash %}
+git clone $HOME/.git /home/public
+{% endhighlight %}
+
+<p>Clone the repo, so that <code>public</code> now includes an up-to-date version.</p>
+
+{% highlight bash %}
+rm -Rf /home/public/.git/objects
+rm -Rf /home/public/.git
+{% endhighlight %}
+
+<p>Remove the <code>.git</code> directory. I&rsquo;m not sure that this actually needs to be split into the two steps above rather than just:</p>
+
+{% highlight bash %}
+rm -Rf /home/public/.git
+{% endhighlight %}
+
+<p>But hey. Other people seem to do it this way, and since I don&rsquo;t know what I&rsquo;m up to really I&rsquo;m just going to go along with that. If you were just using <code>public</code> as the remote, this wouldn&rsquo;t be possible without breaking things, hence the point in keeping the repo in <code>$HOME</code>.</p>
+
+{% highlight bash %}
+rm /home/public/.gitattributes
+rm /home/public/.gitignore
+rm /home/public/README.md
+{% endhighlight %}
+
+<p>Remove the other Git-specific files that don&rsquo;t need to be there. Again, if you don&rsquo;t include a <code>README</code>, or do include other files, you&rsquo;ll need to tweak this step to fit your needs.</p>
+
+{% highlight bash %}
+exit
+{% endhighlight %}
+
+<p>Presumably I don&rsquo;t need to explain this step.</p>
+
+<hr />
+
+<p>So there you have it. A nice and easy <code>post-receive</code> hook that is perfect (according to my low standards) for deploying WordPress but could easily be applied to other <abbr class="acronym">CMS</abbr>s or the like. Next, we do the same for a Jekyll-based deployment (which is much more <q>fun</q>).</p>
