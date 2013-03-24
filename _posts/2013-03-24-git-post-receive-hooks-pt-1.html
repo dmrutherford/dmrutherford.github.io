@@ -8,7 +8,7 @@ description: Setting up a Git post-receive hook for easy WordPress deployment. A
 
 <h2>My Set-Up</h2>
 
-<p>A few brief words about where I&rsquo;m at and what set-up I use. Other than this site, which is at GitHub Pages, I use nearlyfreespeech.net[LINK] for my hosting. I really can&rsquo;t recommend them enough &ndash; I hesitate to use the word cheap, because I think it sends the wrong message, so instead I&rsquo;ll say that they are one of the very few hosts that I consider <em>reasonably priced</em> for small-scale sites. Everybody else screws you.</p>
+<p>A few brief words about where I&rsquo;m at and what set-up I use. Other than this site, which is at GitHub Pages, I use <a href="https://www.nearlyfreespeech.net/">nearlyfreespeech.net</a> for my hosting. I really can&rsquo;t recommend them enough &ndash; I hesitate to use the word cheap, because I think it sends the wrong message, so instead I&rsquo;ll say that they are one of the very few hosts that I consider <em>reasonably priced</em> for small-scale sites. Everybody else screws you.</p>
 
 <p><abbr class="acronym">NFSN</abbr> are pay-as-you-go, whereas most hosts charge a monthly rental fee. It&rsquo;s true that if you used every last drop of storage and bandwidth of your monthly allowance, your costs would probably be lower per unit elsewhere &ndash; but there is essentially a 0% chance of that happening for anybody not running a high-traffic blog or similar. To put things in perspective: the cheapest alternative host I have found costs as much for one site, for one month, as <abbr class="acronym">NFSN</abbr> costs me for <em>all</em> my sites, for an entire <em>year</em>. They also offer <abbr class="acronym">SSH</abbr> as standard, no questions asked.</p>
 
@@ -16,11 +16,11 @@ description: Setting up a Git post-receive hook for easy WordPress deployment. A
 
 <p>In my entire time with <abbr class="acronym">NFSN</abbr>, I have had one problem. I put up a message on their support forum, and had a response within an hour. The next morning the issue was fixed. The only reason the fix came the next morning was the time-zone difference: if I lived in the States I&rsquo;d have seen it by the end of the day. <em>That&rsquo;s</em> how you do support.</p>
 
-<p>I discovered Jekyll[LINK] just after I had finished doing a big overhaul of the back- and front-end of the <cite class="full-work">View from Nobody</cite>[LINK], including moving the whole site to WordPress and building a custom theme from scratch. Talk about great timing. The short version of the story is that Jekyll is the bomb, and as soon as I have time I&rsquo;ll be porting the site over to it. In the meantime, Git is still pretty helpful &ndash; particularly during updates, given that I customise some of the core. I <em>was</em> going to set up automatic syncing of the database as well, but then I just got on with my life.</p>
+<p>I discovered <a href="http://jekyllrb.com/">Jekyll</a> just after I had finished doing a big overhaul of the back- and front-end of the <a href="http://www.dmrutherford.com/"><cite class="full-work">View from Nobody</cite></a>, including moving the whole site to WordPress and building a custom theme from scratch. Talk about great timing. The short version of the story is that Jekyll is the bomb, and as soon as I have time I&rsquo;ll be porting the site over to it. In the meantime, Git is still pretty helpful &ndash; particularly during updates, given that I customise some of the core. I <em>was</em> going to set up automatic syncing of the database as well, but then I just got on with my life.</p>
 
 <p>In the meantime, I have most of my sites running on Jekyll, and one running on WordPress. I use different <code>post-receive</code> hooks in each case, so I&rsquo;m splitting this into two parts. The WordPress version is more straightforward (they&rsquo;re both pretty straightforward) so I&rsquo;ll cover it first.</p>
 
-<p>Last note: I&rsquo;m on Windows. I expected this to be a massive headache, but thanks to the shell included with GitHub for Windows, it&rsquo;s actually not been a big deal.</p>
+<p>Last note: I&rsquo;m on Windows. I expected this to be a massive headache, but thanks to the shell included with <a href="http://windows.github.com/">GitHub for Windows</a>, it&rsquo;s actually not been a big deal.</p>
 
 <h2><abbr class="acronym">NFSN</abbr> Directory Structure &amp; Other Quirks</h2>
 
@@ -30,11 +30,11 @@ description: Setting up a Git post-receive hook for easy WordPress deployment. A
 
 <ul>
 
-<li><p><code>public</code>, which does exactly what you&rsquo;d expect (equivalent to the <code>www</code> directory that some other hosts use);</p></li>
+    <li><p><code>public</code>, which does exactly what you&rsquo;d expect (equivalent to the <code>www</code> directory that some other hosts use);</p></li>
 
-<li><p><code>private</code>, which is roughly equivalent to your <code>home</code> folder on a *nix set-up (appropriately, it&rsquo;s available at <code>$HOME</code> in shell scripts, which is a nice touch);</p></li>
+    <li><p><code>private</code>, which is roughly equivalent to your <code>home</code> folder on a *nix set-up (appropriately, it&rsquo;s available at <code>$HOME</code> in shell scripts, which is a nice touch);</p></li>
 
-<li><p><code>protected</code>, which I have no idea what it&rsquo;s for. Storing <code>.htpasswd</code>[SPAG!!!] files, maybe? That kind of thing? Dunno. I&rsquo;ve never found a use for it.</p></li>
+    <li><p><code>protected</code>, which I have no idea what it&rsquo;s for. Storing <code>.htpasswd</code> files, maybe? That kind of thing? Dunno. I&rsquo;ve never found a use for it.</p></li>
 
 </ul>
 
@@ -44,7 +44,7 @@ description: Setting up a Git post-receive hook for easy WordPress deployment. A
 
 <h3>Gzip Support, or Lack Thereof</h3>
 
-<p>I do have one minor gripe about <abbr class="acronym">NFSN</abbr>: they don&rsquo;t offer on-the-fly server-side compression. Whether it&rsquo;s because they don&rsquo;t charge for server cycles or do charge for bandwidth, I don&rsquo;t know. That means that if you want to serve up your assets Gzipped (and you definitely do, right?) then you need to come up with some other kind of solution.</p>
+<p>I do have one minor gripe about <abbr class="acronym">NFSN</abbr>: they don&rsquo;t offer on-the-fly server-side compression. Whether it&rsquo;s because they don&rsquo;t charge for server cycles or do charge for bandwidth, I don&rsquo;t know. That means that if you want to serve up your site Gzipped (and you definitely do, right?) then you need to come up with some other kind of solution.</p>
 
 <p>Since WordPress generates its <abbr class="acronym">PHP</abbr> pages on the fly, there&rsquo;s not an easy answer. Maybe there&rsquo;s a plug-in that generates compressed pages in parallel? Probably. For the sake of a few bytes (and given how little traffic I get) I have better things to do with my life. I include a pre-zipped version of the <abbr class="acronym">CSS</abbr> and JavaScript files. That could probably be automated but I haven&rsquo;t looked into it.</p>
 
@@ -76,11 +76,11 @@ exit
 
 <ol>
 
-<li><p>Delete everything that&rsquo;s currently in the <code>public</code> folder;</p></li>
+    <li><p>Delete everything that&rsquo;s currently in the <code>public</code> folder;</p></li>
 
-<li><p>Clone the repo from <code>$HOME</code> into the <code>public</code> folder;</p></li>
+    <li><p>Clone the repo from <code>$HOME</code> into the <code>public</code> folder;</p></li>
 
-<li><p>There is not step three. Actually, there is: remove all of the Git-specific files.</p></li>
+    <li><p>There is no step three. Actually, there is: remove all of the Git-specific files.</p></li>
 
 </ol>
 
