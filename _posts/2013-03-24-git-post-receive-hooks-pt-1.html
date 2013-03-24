@@ -18,7 +18,7 @@ description: Setting up a Git post-receive hook for easy WordPress deployment. A
 
 <p>I discovered <a href="http://jekyllrb.com/">Jekyll</a> just after I had finished doing a big overhaul of the back- and front-end of the <a href="http://www.dmrutherford.com/"><cite class="full-work">View from Nobody</cite></a>, including moving the whole site to WordPress and building a custom theme from scratch. Talk about great timing. The short version of the story is that Jekyll is the bomb, and as soon as I have time I&rsquo;ll be porting the site over to it. In the meantime, Git is still pretty helpful &ndash; particularly during updates, given that I customise some of the core. I <em>was</em> going to set up automatic syncing of the database as well, but then I just got on with my life.</p>
 
-<p>In the meantime, I have most of my sites running on Jekyll, and one running on WordPress. I use different <code>post-receive</code> hooks in each case, so I&rsquo;m splitting this into two parts. The WordPress version is more straightforward (they&rsquo;re both pretty straightforward) so I&rsquo;ll cover it first.</p>
+<p>For now, I have most of my sites running on Jekyll, and one running on WordPress. I use different <code>post-receive</code> hooks in each case, so I&rsquo;m splitting this into two parts. The WordPress version is more straightforward (they&rsquo;re both pretty straightforward) so I&rsquo;ll cover it first.</p>
 
 <p>Last note: I&rsquo;m on Windows. I expected this to be a massive headache, but thanks to the shell included with <a href="http://windows.github.com/">GitHub for Windows</a>, it&rsquo;s actually not been a big deal.</p>
 
@@ -48,7 +48,7 @@ description: Setting up a Git post-receive hook for easy WordPress deployment. A
 
 <p>Since WordPress generates its <abbr class="acronym">PHP</abbr> pages on the fly, there&rsquo;s not an easy answer. Maybe there&rsquo;s a plug-in that generates compressed pages in parallel? Probably. For the sake of a few bytes (and given how little traffic I get) I have better things to do with my life. I include a pre-zipped version of the <abbr class="acronym">CSS</abbr> and JavaScript files. That could probably be automated but I haven&rsquo;t looked into it.</p>
 
-<p>With Jekyll, since the static <abbr class="acronym">HTML</abbr> is generated at compile-time rather than run-time, you can do the Gzipping as part of the <code>post-receive</code> process. More on which in part two.</p>
+<p>With Jekyll, since the static <abbr class="acronym">HTML</abbr> is generated at compile-time rather than run-time, you can do the Gzipping as part of the <code>post-receive</code> process. More on which in <a href="/echo/git-post-receive-hooks-pt-2/">part two</a>.</p>
 
 <h2>A WordPress post-receive Hook</h2>
 
@@ -139,4 +139,4 @@ exit
 
 <hr />
 
-<p>So there you have it. A nice and easy <code>post-receive</code> hook that is perfect (according to my low standards) for deploying WordPress but could easily be applied to other <abbr class="acronym">CMS</abbr>s or the like. Next, we do the same for a Jekyll-based deployment (which is much more <q>fun</q>).</p>
+<p>So there you have it. A nice and easy <code>post-receive</code> hook that is perfect (according to my low standards) for deploying WordPress but could easily be applied to other <abbr class="acronym">CMS</abbr>s or the like. Next, we do the same for a <a href="/echo/git-post-receive-hooks-pt-2/">Jekyll-based deployment</a> (which is much more <q>fun</q>).</p>
