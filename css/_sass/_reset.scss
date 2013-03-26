@@ -55,7 +55,5 @@ table {
 	box-sizing: border-box;
 }
 
-::selection, ::-moz-selection {
-	background-color:	$blue;
-	color:				white;
-}
+::selection         { background-color: $blue; color: white; }
+::-moz-selection    { background-color: $blue; color: white; }

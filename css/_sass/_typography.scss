@@ -82,7 +82,7 @@ a {
 }
 
 .post-link, .post-link:visited, {
-	border-left:		0.2rem solid rgba(255,255,255,0.25);
+	border-left:		1px solid rgba(255,255,255,0.25);
 	color:				white;
 	display:			block;
 	padding-left:		1.4rem;
@@ -241,21 +241,23 @@ ul {
 code {
 	background-color:	#1b1918;
 	border-radius:		0.4rem;
-	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.35),
-						-0.1rem -0.1rem -0.1rem 0.1rem rgba(255,255,255,0.06),
-						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.12);
+	box-shadow:			inset 1px 1px 8px 2px rgba(0,0,0,0.35),
+						-1px -1px -1px 1px rgba(255,255,255,0.06),
+						1px 1px -1px 1px rgba(255,255,255,0.12);
 	font-family:		$mono;
 	font-size:			0.85em;
+    margin-right:       0.1rem;
 	padding:			0.6rem 0.6rem 0.4rem;
 	text-shadow:		0.1rem 0.1rem 0.3rem darken(#1b1918, 25%);
+    white-space:        nowrap;
 }
 
 pre {
 	background-color:	#1b1918;
-	border-radius:		1.2rem;
-	box-shadow:			inset 0.1rem 0.1rem 0.8rem 0.2rem rgba(0,0,0,0.35),
-						-0.1rem -0.1rem -0.1rem 0.1rem rgba(255,255,255,0.06),
-						0.1rem 0.1rem -0.1rem 0.1rem rgba(255,255,255,0.12);
+	border-radius:		0.8rem;
+	box-shadow:			inset 1px 1px 8px 2px rgba(0,0,0,0.35),
+						-1px -1px -1px 1px rgba(255,255,255,0.06),
+						1px 1px -1px 1px rgba(255,255,255,0.12);
 	line-height:		1.2;
 	padding:			1.2rem;
 	overflow-x:			auto;
@@ -264,7 +266,9 @@ pre {
 		border-radius:	0;
 		box-shadow:		none;
 		line-height:	1.2;
+        margin:         0;
 		padding:		0;
+        white-space:    inherit;
 		
 		@media (min-width: $break-1) {
 			font-size:	0.65em;

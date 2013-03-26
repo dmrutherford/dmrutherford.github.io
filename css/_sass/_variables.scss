@@ -1,6 +1,6 @@
 // COLOURS
 
-$blue:			#2385b8;
+$blue:			lighten(#2385b8, 10%);
 $blue-light:	lighten($blue, 10%);
 $blue-dark:		darken($blue, 10%);
 $bg-grey:		#292929;
@@ -49,3 +49,5 @@ $corduroy-2x: 	url('/img/corduroy@2x.png');
 $footer-height:	8.6rem;
 $break-1:		40em;
 $break-2:		60em;
+$break-3:		80em;
+$break-4:		100em;
