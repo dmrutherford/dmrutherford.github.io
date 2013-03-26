@@ -1,0 +1,110 @@
+---
+layout: post
+title: Git post-receive Hooks, Pt. 2
+description: A Git post-receive hook for Jekyll deployment, including compile-time compression for the lulz.
+---
+
+<p>So, last time I covered a <code>post-receive</code> hook for <a href="/echo/git-post-receive-hooks-pt-1">WordPress deployment</a>. This time we tackle one for a Jeyll-based site.</p>
+
+<h2>A Jekyll post-receive Hook</h2>
+
+<p>Here&rsquo;s what we&rsquo;re working towards:</p>
+
+{% highlight bash %}
+#!/bin/sh
+
+REPONAME=.git
+GIT_REPO=$HOME/$REPONAME
+TMP_GIT_CLONE=$HOME/.tmp/$REPONAME
+PUBLIC=/home/public
+
+git clone $GIT_REPO $TMP_GIT_CLONE
+
+jekyll --no-auto $TMP_GIT_CLONE $PUBLIC
+
+rm -Rf $HOME/.tmp/$REPONAME/.git/objects
+rm -Rf $HOME/.tmp/$REPONAME/.git
+rm -Rf $HOME/.tmp/$REPONAME
+
+find $PUBLIC/ -iname '*.html' -exec sh -c 'gzip < {} > {}.gz' \;
+find $PUBLIC/ -iname '*.css' -exec sh -c 'gzip < {} > {}.gz' \;
+find $PUBLIC/ -iname '*.js' -exec sh -c 'gzip < {} > {}.gz' \;
+
+exit
+{% endhighlight %}
+
+<p>Slightly more exciting than the previous one. Insofar as a <code>post-receive</code> hook can be considered <q>exciting</q>. Here&rsquo;s the English translation of the process:</p>
+
+<ol>
+
+    <li><p>Set up some variables to make things marginally clearer (in retrospect, these are not particularly useful, so perhaps just skip this step &ndash; truly, naming things is the hardest part of programming);</p></li>
+    
+    <li><p>Clone the remote repo into a temporary folder in <code>$HOME</code>, so that we can conveniently have our wicked way with it;</p></li>
+    
+    <li><p>Run Jekyll and output the compiled site to the <code>public</code> folder;</p></li>
+    
+    <li><p>Get rid of the evidence of us having our wicked way (by which I mean delete the temporary folder);</p></li>
+    
+    <li><p>Since, <a href="/echo/git-post-receive-hooks-pt-1">as discussed</a>, <abbr class="acronym">NFSN</abbr> doesn&rsquo;t do on-the-fly compression, create compressed versions of all the usefully-compressible[SPAG!!!] files.</p></li>
+
+</ol>
+
+<p>I was initially a little unsure about how best to handle versioning: should the whole directory be a repo, or just the <code>_site</code> folder? How was deployment to work? Obviously, the ideal was to have the whole thing be a repo, so that version control was applied to the source files and not just the generated site. (In fact, in the end, I actually have the <code>_site</code> folder added to <code>.gitignore</code>.) But I wasn&rsquo;t sure how to just push one subfolder, and I didn&rsquo;t want to resort to <abbr class="acronym">FTP</abbr> for deployment. The solution ended up being obvious: push the source files and run Jekyll on the server.</p>
+
+<p>I won&rsquo;t go through the whole thing line by line, as for the most part it&rsquo;s pretty self-explanatory. But I will talk a bit more about the compression step, because it caused me some headaches.</p>
+
+<h2>Compressing at Compile-Time</h2>
+
+<p>So with Jekyll I&rsquo;m just using <abbr class="acronym">HTML</abbr>, <abbr class="acronym">CSS</abbr> and JavaScript files. Obviously there&rsquo;s no need to compress images further, as they&rsquo;re already compressed and you&rsquo;ll just waste visitors&rsquo; time. The three steps I use to do this in the <code>post-receive</code> hook are as follows:</p>
+
+{% highlight bash %}
+find $PUBLIC/ -iname '*.html' -exec sh -c 'gzip < {} > {}.gz' \;
+find $PUBLIC/ -iname '*.css' -exec sh -c 'gzip < {} > {}.gz' \;
+find $PUBLIC/ -iname '*.js' -exec sh -c 'gzip < {} > {}.gz' \;
+{% endhighlight %}
+
+<p>Before I go any further, let me issue this disclaimer: <em>there is probably a much better way of doing this than I know</em>. But as crummy and ugly a hack of a method as this is, I can at least testify that it does work.</p>
+
+<p>The basic process is that we <code>find</code> any of the appropriate file types and create a Gzipped copy of them. I initially tried this with the marginally more elegant:</p>
+
+{% highlight bash %}
+find $PUBLIC/ -iname '*.html' -exec gzip {} \;
+{% endhighlight %}
+
+<p>(Taking just the <abbr class="acronym">HTML</abbr> files as an example.)</p>
+
+<p>This works, in a sense. It correctly Gzips all the files we want zipped. But there&rsquo;s a problem: it overwrites the unzipped version of the files. This is an issue for two reasons.</p>
+
+<p>Firstly, some older browsers might not support compressed files. Honestly, these days, this is basically irrelevant. If this was the only problem I straight-up wouldn&rsquo;t care.</p>
+
+<p>The second reason is, unfortunately, fatal. For security reasons, I use the following <code>.htaccess</code> setting:</p>
+
+{% highlight apache %}
+Options All -Indexes
+{% endhighlight %}
+
+<p>That prevents people from viewing bare directories. Definitely a setting I want enabled. Apparently, though, Apache is not okay with swapping out <code>index.html</code> for <code>index.html.gz</code> &ndash; it treats directories with the latter as not having <code>index</code> files at all. That&rsquo;s something of a big deal, as it stops anyone viewing anything on the site.</p>
+
+<p>Now it is possible to get Gzip to create a duplicate rather than overwriting. Apparently this involves <code>STDOUT</code> or something. Suffice to say that, while I did manage to get this working when targetting specific files, I could not get it to work on whatever <code>find</code> was spitting out. From what I can gather &ndash; which is not much &ndash; the issue stems from the fact that using <code>-exec gzip</code> runs the command in the same shell, or something. You need to actually run it in a nested shell: hence using <code>-exec sh</code> and then calling in Gzip in the second shell. Thank you <a href="http://stackoverflow.com/questions/6258972/gzip-multiple-files-individually-and-keep-the-original-files">stackoverflow</a>.</p>
+
+<p>I won&rsquo;t pretend to really understand how this is working. I also don&rsquo;t understand why <code>-c</code> is passed to <code>sh</code> and not to <code>gzip</code>. I don&rsquo;t know what <code>&lt; {} &gt;</code> does. In fact, my understanding of how that command works tells me that this <em>shouldn&rsquo;t</em> work. It does work. Clearly I don&rsquo;t understand.</p>
+
+<h2>Fun with .htaccess</h2>
+
+<p>Whatever, the point of the story is this: regardless of my lack of comprehension, this does generate compressed duplicates of all the necessary files. Now all we need to do is serve them instead of the uncompressed versions, using a bit of <code>.htaccess</code>-fu. Which, ironically, I do understand. How many people can honestly say they understand Apache configuration better than Bash? Corollary, how many people are that bad at Bash scripting?</p>
+
+{% highlight apache %}
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{HTTP:accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME} !^.+\.gz$
+    RewriteCond %{REQUEST_FILENAME}.gz -f
+    RewriteRule ^(.+) $1.gz [L]
+</IfModule>
+{% endhighlight %}
+
+<p>All this does is check if <code>mod_rewrite</code> is available (it is on <abbr class="acronym">NFSN</abbr>), and if it is, maybe do some rewriting of the request. Basically, if the request header includes <code>accept-encoding gzip</code> (<abbr>i.e.</abbr> &ndash; the browser making the request supports Gzipped files), then the server checks to see if a Gzipped version of the requested file exists.</p>
+
+<p>Say I request <code>/css/styles.css</code> and my browser can handle Gzip, Apache will check to see if <code>/css/styles.css.gz</code> exists. If it doesn&rsquo;t, it just serves the original file as requested. Thanks to our earlier <code>post-receive</code> hook, though, the compressed version should also be available. In that case, Apache will serve up that version rather than the original, and the visitor gets all the benefits in speed that this brings.</p>
+
+<p>This does mean that you have to pay storage costs for the compressed duplicates of the files on <abbr class="acronym">NFSN</abbr>. So cunning. Either you pay the extra bandwidth cost of serving uncompressed files, or you pay for the storage. Still, the latter is more predictable, and amounts to &ndash; seriously &ndash; a couple of dollars per year. Totally worth it.</p>
