@@ -5,14 +5,14 @@ layout: nil
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>http://dmrutherford.github.com/</loc>
+    <loc>http://dmrutherford.github.io/</loc>
     <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
     <changefreq>weekly</changefreq>
 		<priority>1.0</priority>
   </url>
   {% for page in site.posts %}
   <url>
-    <loc>http://dmrutherford.github.com{{ page.url }}</loc>
+    <loc>http://dmrutherford.github.io{{ page.url }}</loc>
     {% if page.last_updated %}
     <lastmod>{{ page.last_updated | date: "%Y-%m-%d" }}</lastmod>
     {% elsif page.date %}
@@ -23,7 +23,7 @@ layout: nil
   </url>{% endfor %}
   {% for page in site.html_pages %}{% if page.slug != 'frontpage' %}
   <url>
-    <loc>http://dmrutherford.github.com{{ page.url }}</loc>
+    <loc>http://dmrutherford.github.io{{ page.url }}</loc>
     {% if page.last_updated %}
     <lastmod>{{ page.last_updated | date: "%Y-%m-%d" }}</lastmod>
     {% elsif page.date %}
