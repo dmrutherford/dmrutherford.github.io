@@ -1,0 +1,99 @@
+---
+layout: post
+title: A Few Thoughts About CSS Units
+description: What units should you use when in CSS, according to the wisdom of David?
+---
+
+<p>Apropos of nothing, I thought I&rsquo;d write up a brief summary of when and how to use which units in <abbr class="acronym">CSS</abbr>. I&rsquo;m taking it for granted that these days, responsive is the way to go. I&rsquo;m not going to be religious about this &ndash; if you disagree, or if the specific project you&rsquo;re working on merits a static design, great.</p>
+
+<h2>1. Change Your Base Font Size</h2>
+
+<p>That is, the <code>font-size</code> on the <abbr class="acronym">HTML</abbr> element. This trick predates the whole responsive thing, but whatever. I&rsquo;ve seen in mentioned quite a few times recently. For reference, the default base <code>font-size</code> is <code>16px</code> in pretty much any browser. If we want to use responsive-friendly units like <code>em</code> and <code>rem</code>, it&rsquo;s nice not to have to do hideous maths and end up with numbers like <code>1.5625em</code> to replace <code>25px</code>.</p>
+
+<p>One approach is to set the base <code>font-size</code> to <code>6.25%</code>. 6.25% of 16 is 1, so this gives <code>1(r)em</code> equal to <code>1px</code>. That&rsquo;s definitely convenient, but it makes me a little nervous:</p>
+
+<ol>
+
+    <li><p>It might kick up a fuss with minimum <code>font-size</code> values in browsers;</p></li>
+    
+    <li><p>Failing that, I can just imagine something borking somewhere, leaving all the text on the page one pixel tall.</p></li>
+
+</ol>
+
+<p>Maybe I&rsquo;m just being paranoid. Either way, I am totally on board with the basic principle. I&rsquo;d personally go with a <code>font-size</code> of <code>62.5%</code>, to give <code>1(r)em</code> equal to <code>10px</code>:</p>
+
+<ol>
+
+    <li><p>If something does bork, text will be a bearable <code>10px</code>;</p></li>
+    
+    <li><p>This should be high enough to avoid any minimum value nasties;</p></li>
+    
+    <li><p>Converting from units of 1 to units of 0.1 is trivially easy. Hopefully, anyway.</p></li>
+
+</ol>
+
+<p>It&rsquo;s worth noting that I would immediately change the <code>font-size</code> on the body back to <em>at least</em> <code>16px</code> &ndash; or should I say, <code>1.6rem</code>&hellip; See? So easy. I don&rsquo;t think there&rsquo;s ever a reason to go much smaller than that for body type. In fact, I&rsquo;m leaning more and more towards <code>1.8rem</code> as the default.</p>
+
+<h2>2. Work in Rem</h2>
+
+<p>Really, with very few exceptions, work in <code>rem</code>. If browser support is going to be an issue, then fire up some <code>px</code> fallbacks &ndash; but really&hellip;? Honestly, I struggle to care.</p>
+
+<p>Once you&rsquo;re in <code>rem</code>, everything will scale nicely, and unlike <code>em</code> you won&rsquo;t have any problems with cascading. Don&rsquo;t get me wrong: I like <code>em</code>, and they&rsquo;re definitely better than <code>px</code>. But boy is nesting a <abbr class="acronym">PITA</abbr>. You have to get so specific:</p>
+
+{% highlight css %}
+ul {
+    font-size: 0.9em;
+}
+
+    ul ul {
+        font-size: 1em;
+    }
+    
+    blockquote ul {
+        font-size: 1em;
+    }
+{% endhighlight %}
+
+<p>You get the picture.</p>
+
+<h2>3. Exceptions to Working in Rem</h2>
+
+<h3>3.1. Block Widths</h3>
+
+<p>If you&rsquo;re going for the full flexi, percentages are your friend.</p>
+
+<h3>3.2. Relatively-sized Things</h3>
+
+<p>As in, <em>locally</em> relatively-sized. For example, <code>&lt;small&gt;</code>: the point is not to be a specific small size, but to be <em>smaller than the surroundings</em>. In these cases, <code>em</code> has our backs &ndash; just like in the good ol&rsquo; days.</p>
+
+<h3>3.3. Fixed-size Things</h3>
+
+<p>So say we have a big chunky border. We probably want that to scale with everything else, right? It&rsquo;s meant to look big and chunky at any size, and we don&rsquo;t want it getting dwarfed by the text or anything. Easily done: use <code>rem</code>.</p>
+
+<p><em>However:</em> what if our border is just a single-pixel straight line? We probably always want it to be a single-pixel straight line. Even at really high zoom. At which point we introduce&hellip; <code>px</code>! Hey, <code>px</code>; haven&rsquo;t seen you in a while.<p>
+
+<p>A brief aside about high-<abbr class="acronym">DPI</abbr> displays: we can&rsquo;t use a half-pixel value, so we can&rsquo;t get an ultra-crisp line. Fortunately, Brad Birdsall has a <a href="http://bradbirdsall.com/mobile-web-in-high-resolution">really genius solution</a> to the issue. This is super elegant. Bonus points because, while not all browsers and devices support <code>box-shadow</code>&hellip; chances are that anything with a high-<abbr class="acronym">DPI</abbr> display does.</p>
+
+<h2>4. Media Queries</h2>
+
+<p>Work in <code>em</code>. Why not <code>rem</code>? Well&hellip;</p>
+
+<ol>
+
+    <li><p>I&rsquo;ve had problems with it simply not working. Possibly <abbr class="acronym">PEBCAC</abbr>, but I can&rsquo;t honestly recommend it;</p></li>
+    
+    <li><p>You wouldn&rsquo;t gain anything from it anyway, as you&rsquo;re about to find out.</p></li>
+
+</ol>
+
+<p>Media queries seem to reference the user agent stylesheet. Hopefully you&rsquo;re working with the super-convenient <code>font-size: 62.5%;</code>, but you&rsquo;re media queries aren&rsquo;t. Nope: they&rsquo;re still based on <code>100%</code>, or <code>16px</code>. You have to bear that in mind when you&rsquo;re setting your breakpoints.</p>
+
+<p>If you&rsquo;re using percentage widths, this is less of an issue &ndash; presumably you just tweak the media query breakpoint until it looks right. If you&rsquo;re like me, and almost always work to a <code>16px</code> grid anyway, the maths is mercifully straightforward. It shouldn&rsquo;t be too big a deal in any case.</p>
+
+<p>Given this quirk, though, why bother to use <code>em</code> at all? Why not just work in <code>px</code>? Well, we are at least <em>trying</em> to be responsive here&hellip; This way, if the user has a different browser default <code>font-size</code> set, then the layout will survive, and breakpoints will fire in the appropriate place, relatively speaking. Again, it&rsquo;s less of an issue if everything&rsquo;s in super-flexible percentages, but it&rsquo;s still a sensible move.</p>
+
+<h2>5. The Future</h2>
+
+<p>I guess we should expect to see more of <code>vh</code>, <code>vw</code> and <code>vmin</code>. Nice, flexible font-sizes to go with our flexible layouts. As support improves, I suspect we&rsquo;ll see more and more <q>semi-static</q> layouts, which look the same but scale with the browser, with the occasional breakpoint when things start to look awry. In the meantime, stick to <code>rem</code> for almost everything, and set a nice, large base <code>font-size</code> for easy reading, and all will be well.*</p>
+
+<p><i>* I can&rsquo;t actually guarantee that all will be well.</i></p>
