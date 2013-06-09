@@ -314,7 +314,7 @@ ol p + ol, ol p + ul, ul p + ol, ul p + ul {
 code {
   background-color: #1b1918;
   border-radius: 0.4rem;
-  box-shadow: inset 1px 1px 8px 2px rgba(0, 0, 0, 0.35), -1px -1px -1px 1px rgba(255, 255, 255, 0.06), 1px 1px -1px 1px rgba(255, 255, 255, 0.12);
+  box-shadow: inset 1px 1px 8px 2px rgba(0, 0, 0, 0.35), -1px -1px rgba(255, 255, 255, 0.06), 1px 1px rgba(255, 255, 255, 0.12);
   font-family: "SoCoPro", "Consolas", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", "Courier New", monospace;
   font-size: 0.85em;
   margin-right: 0.1rem;
@@ -325,7 +325,7 @@ code {
 pre {
   background-color: #1b1918;
   border-radius: 0.8rem;
-  box-shadow: inset 1px 1px 8px 2px rgba(0, 0, 0, 0.35), -1px -1px -1px 1px rgba(255, 255, 255, 0.06), 1px 1px -1px 1px rgba(255, 255, 255, 0.12);
+  box-shadow: inset 1px 1px 8px 2px rgba(0, 0, 0, 0.35), -1px -1px rgba(255, 255, 255, 0.06), 1px 1px rgba(255, 255, 255, 0.12);
   line-height: 1.2;
   padding: 1.2rem;
   overflow-x: auto; }
